@@ -14,8 +14,8 @@ exports.registerUser = catchAsyncErrors( async(req,res,next)=>{
         name, email, password,
         avatar: {
             public_id: "this is a sample id",
-            url: "profilepicUrl",
-        },
+            url: "profilepicUrl"
+        }
     });
 
     sendToken(user,201,res);
@@ -59,7 +59,7 @@ exports.logout = catchAsyncErrors(async(req,res,next)=>{
 
     res.status(200).json({
         success: true,
-        message: "Logged Out",
+        message: "Logged Out"
     });
 });
 
@@ -92,8 +92,8 @@ exports.forgotPassword = catchAsyncErrors(async(req,res,next)=>{
 
         res.status(200).json({
             success: true,
-            message: `Email sent to ${user.email} successfully`,
-        })
+            message: `Email sent to ${user.email} successfully`
+        });
         
     } catch (error) {
         user.resetPasswordToken = undefined;
@@ -114,7 +114,7 @@ exports.resetPassword = catchAsyncErrors(async(req,res,next)=>{
 
     const user = await User.findOne({
         resetPasswordToken,
-        resetPasswordExpire: {$gt: Date.now()},
+        resetPasswordExpire: {$gt: Date.now()}
     });
 
     if(!user){
@@ -125,7 +125,7 @@ exports.resetPassword = catchAsyncErrors(async(req,res,next)=>{
         return next(new ErrorHandler("Password does not match",400));
     }
 
-    user.password = req.body.password ;
+    user.password = req.body.password;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
@@ -140,7 +140,7 @@ exports.getUserDetails = catchAsyncErrors(async(req,res,next)=>{
 
     res.status(200).json({
         sucess: true,
-        user,
+        user
     });
 });
 
